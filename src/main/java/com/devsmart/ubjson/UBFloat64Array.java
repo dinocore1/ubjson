@@ -1,4 +1,4 @@
-package com.devsmart.microdb.ubjson;
+package com.devsmart.ubjson;
 
 
 public class UBFloat64Array extends UBArray {

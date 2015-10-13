@@ -1,4 +1,4 @@
-package com.devsmart.microdb.ubjson;
+package com.devsmart.ubjson;
 
 
 import java.util.Collection;
@@ -11,7 +11,7 @@ public final class UBObject extends UBValue implements Map<String, UBValue> {
     private TreeMap<String, UBValue> mValue;
 
     public UBObject() {
-        mValue = new TreeMap<String, UBValue>();
+        this(new TreeMap<String, UBValue>());
     }
 
     public UBObject(TreeMap<String, UBValue> value) {

@@ -1,6 +1,7 @@
-package com.devsmart.microdb.ubjson;
+package com.devsmart.ubjson;
 
 
+import java.util.Map;
 import java.util.TreeMap;
 
 public class UBValueFactory {
@@ -18,7 +19,7 @@ public class UBValueFactory {
     }
 
     public static UBBool createBool(boolean value) {
-        if(value) {
+        if (value) {
             return VALUE_TRUE;
         } else {
             return VALUE_FALSE;
@@ -30,13 +31,13 @@ public class UBValueFactory {
     }
 
     public static UBValue createInt(long value) {
-        if(inRange(value, 0, 255)) {
+        if (inRange(value, 0, 255)) {
             return new UBUInt8(value);
-        } else if(inRange(value, -128, 127)) {
+        } else if (inRange(value, -128, 127)) {
             return new UBInt8(value);
-        } else if(inRange(value, -32768, 32767)) {
+        } else if (inRange(value, -32768, 32767)) {
             return new UBInt16(value);
-        } else if(inRange(value, -2147483648, 2147483647)) {
+        } else if (inRange(value, -2147483648, 2147483647)) {
             return new UBInt32(value);
         } else {
             return new UBInt64(value);
@@ -60,7 +61,7 @@ public class UBValueFactory {
     }
 
     public static UBValue createStringOrNull(String string) {
-        if(string == null) {
+        if (string == null) {
             return createNull();
         } else {
             return createString(string);
@@ -68,9 +69,13 @@ public class UBValueFactory {
 
     }
 
-    public static UBInt8Array createArray(byte[] value) { return new UBInt8Array(value); }
+    public static UBInt8Array createArray(byte[] value) {
+        return new UBInt8Array(value);
+    }
 
-    public static UBInt16Array createArray(short[] value) { return new UBInt16Array(value); }
+    public static UBInt16Array createArray(short[] value) {
+        return new UBInt16Array(value);
+    }
 
     public static UBInt32Array createArray(int[] value) {
         return new UBInt32Array(value);
@@ -88,7 +93,11 @@ public class UBValueFactory {
         return new UBArray(args);
     }
 
-    public static UBObject createObject(TreeMap<String, UBValue> value) {
-        return new UBObject(value);
+    public static UBObject createObject(Map<String, UBValue> value) {
+        return new UBObject(new TreeMap<String, UBValue>(value));
+    }
+
+    public static UBObject createObject() {
+        return new UBObject();
     }
 }

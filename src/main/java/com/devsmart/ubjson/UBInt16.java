@@ -1,4 +1,4 @@
-package com.devsmart.microdb.ubjson;
+package com.devsmart.ubjson;
 
 
 public final class UBInt16 extends UBValue {

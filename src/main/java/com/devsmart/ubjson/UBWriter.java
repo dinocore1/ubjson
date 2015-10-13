@@ -1,4 +1,4 @@
-package com.devsmart.microdb.ubjson;
+package com.devsmart.ubjson;
 
 
 import java.io.Closeable;
