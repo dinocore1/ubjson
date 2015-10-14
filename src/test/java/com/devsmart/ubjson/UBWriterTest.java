@@ -127,6 +127,11 @@ public class UBWriterTest {
             assertEquals('#', array[3]);
             assertTrue(array[4] == 'i' || array[4] == 'U');
             assertEquals(2, array[5]);
+
+            assertEquals(0x3, array[6]);
+            assertEquals(0x4, array[7]);
+            assertEquals(8, array.length);
+
         } else if(array[1] == '#') {
             assertTrue(array[2] == 'i' || array[2] == 'U');
             assertEquals(2, array[3]);

@@ -38,22 +38,38 @@ public class UBWriter implements Closeable {
 
     public void writeInt8(byte value) throws IOException {
         mOutputStream.write(UBValue.MARKER_INT8);
+        writeRawInt8(value);
+    }
+
+    private void writeRawInt8(byte value) throws IOException {
         mOutputStream.write(value);
     }
 
     public void writeUInt8(short value) throws IOException {
         mOutputStream.write(UBValue.MARKER_UINT8);
+        writeRawUInt8(value);
+    }
+
+    private void writeRawUInt8(short value) throws IOException {
         mOutputStream.write(0xFF & value);
     }
 
     public void writeInt16(short value) throws IOException {
         mOutputStream.write(UBValue.MARKER_INT16);
+        writeRawInt16(value);
+    }
+
+    private void writeRawInt16(short value) throws IOException {
         mOutputStream.write(value >> 8);
         mOutputStream.write(value);
     }
 
     public void writeInt32(int value) throws IOException {
         mOutputStream.write(UBValue.MARKER_INT32);
+        writeRawInt32(value);
+    }
+
+    private void writeRawInt32(int value) throws IOException {
         mOutputStream.write((value >> 24));
         mOutputStream.write((value >> 16));
         mOutputStream.write((value >> 8));
@@ -62,6 +78,10 @@ public class UBWriter implements Closeable {
 
     public void writeInt64(long value) throws IOException {
         mOutputStream.write(UBValue.MARKER_INT64);
+        writeRawInt64(value);
+    }
+
+    private void writeRawInt64(long value) throws IOException {
         mOutputStream.write((int) ((value >> 56)));
         mOutputStream.write((int) ((value >> 48)));
         mOutputStream.write((int) ((value >> 40)));
@@ -88,26 +108,22 @@ public class UBWriter implements Closeable {
 
     public void writeFloat32(float value) throws IOException {
         mOutputStream.write(UBValue.MARKER_FLOAT32);
+        writeRawFloat32(value);
+    }
 
+    private void writeRawFloat32(float value) throws IOException {
         int intValue = Float.floatToIntBits(value);
-        mOutputStream.write((intValue >> 24));
-        mOutputStream.write((intValue >> 16));
-        mOutputStream.write((intValue >> 8));
-        mOutputStream.write(intValue);
+        writeRawInt32(intValue);
     }
 
     public void writeFloat64(double value) throws IOException {
         mOutputStream.write(UBValue.MARKER_FLOAT64);
+        writeRawFloat64(value);
+    }
 
+    private void writeRawFloat64(double value) throws IOException {
         long intValue = Double.doubleToLongBits(value);
-        mOutputStream.write((int) ((intValue >> 56)));
-        mOutputStream.write((int) ((intValue >> 48)));
-        mOutputStream.write((int) ((intValue >> 40)));
-        mOutputStream.write((int) ((intValue >> 32)));
-        mOutputStream.write((int) ((intValue >> 24)));
-        mOutputStream.write((int) ((intValue >> 16)));
-        mOutputStream.write((int) ((intValue >> 8)));
-        mOutputStream.write((int) (intValue));
+        writeRawInt64(intValue);
     }
 
     public void writeInt8Array(byte[] value) throws IOException {
@@ -118,7 +134,7 @@ public class UBWriter implements Closeable {
         writeInt(value.length);
 
         for(int i=0;i<value.length;i++){
-            writeInt8(value[i]);
+            writeRawInt8(value[i]);
         }
     }
 
@@ -130,7 +146,7 @@ public class UBWriter implements Closeable {
         writeInt(value.length);
 
         for(int i=0;i<value.length;i++){
-            writeInt16(value[i]);
+            writeRawInt16(value[i]);
         }
     }
 
@@ -142,7 +158,7 @@ public class UBWriter implements Closeable {
         writeInt(value.length);
 
         for(int i=0;i<value.length;i++){
-            writeInt32(value[i]);
+            writeRawInt32(value[i]);
         }
     }
 
@@ -154,7 +170,7 @@ public class UBWriter implements Closeable {
         writeInt(value.length);
 
         for(int i=0;i<value.length;i++){
-            writeFloat32(value[i]);
+            writeRawFloat32(value[i]);
         }
     }
 
@@ -166,7 +182,7 @@ public class UBWriter implements Closeable {
         writeInt(value.length);
 
         for(int i=0;i<value.length;i++){
-            writeFloat64(value[i]);
+            writeRawFloat64(value[i]);
         }
     }
 
