@@ -73,20 +73,60 @@ public class UBValueFactory {
         return new UBInt8Array(value);
     }
 
+    public static UBValue createArrayOrNull(byte[] value) {
+        if(value == null) {
+            return createNull();
+        } else {
+            return createArray(value);
+        }
+    }
+
     public static UBInt16Array createArray(short[] value) {
         return new UBInt16Array(value);
+    }
+
+    public static UBValue createArrayOrNull(short[] value) {
+        if(value == null) {
+            return createNull();
+        } else {
+            return createArray(value);
+        }
     }
 
     public static UBInt32Array createArray(int[] value) {
         return new UBInt32Array(value);
     }
 
+    public static UBValue createArrayOrNull(int[] value) {
+        if(value == null) {
+            return createNull();
+        } else {
+            return createArray(value);
+        }
+    }
+
     public static UBFloat32Array createArray(float[] value) {
         return new UBFloat32Array(value);
     }
 
+    public static UBValue createArrayOrNull(float[] value) {
+        if(value == null) {
+            return createNull();
+        } else {
+            return createArray(value);
+        }
+    }
+
     public static UBFloat64Array createArray(double[] value) {
         return new UBFloat64Array(value);
+    }
+
+    public static UBValue createArrayOrNull(double[] value) {
+        if(value == null) {
+            return createNull();
+        } else {
+            return createArray(value);
+        }
     }
 
     public static UBArray createArray(UBValue... args) {
@@ -99,5 +139,13 @@ public class UBValueFactory {
 
     public static UBObject createObject() {
         return new UBObject();
+    }
+
+    public static UBValue createValueOrNull(UBValue value) {
+        if(value == null) {
+            return createNull();
+        } else {
+            return value;
+        }
     }
 }
