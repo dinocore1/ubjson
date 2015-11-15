@@ -23,20 +23,6 @@ public final class UBObject extends UBValue implements Map<String, UBValue> {
         return Type.Object;
     }
 
-    /*
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-
-        for(Map.Entry<String, UBValue> entry : mValue.entrySet()) {
-            builder.append(entry.getKey() + " => " + entry.getValue().toString());
-            builder.append('\n');
-        }
-
-        return builder.toString();
-    }
-    */
-
     @Override
     public boolean isEmpty() {
         return mValue.isEmpty();
@@ -95,5 +81,14 @@ public final class UBObject extends UBValue implements Map<String, UBValue> {
     @Override
     public int size() {
         return mValue.size();
+    }
+
+    @Override
+    public int hashCode() {
+        int retval = 0;
+        for(Map.Entry<String, UBValue> entry : mValue.entrySet()) {
+            retval ^= entry.getKey().hashCode() + entry.getValue().hashCode();
+        }
+        return retval;
     }
 }

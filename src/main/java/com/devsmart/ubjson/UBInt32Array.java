@@ -1,6 +1,8 @@
 package com.devsmart.ubjson;
 
 
+import java.util.Arrays;
+
 public class UBInt32Array extends UBArray {
 
     private final int[] mArray;
@@ -35,5 +37,10 @@ public class UBInt32Array extends UBArray {
 
     public int[] getValues() {
         return mArray;
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(mArray);
     }
 }

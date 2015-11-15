@@ -1,5 +1,7 @@
 package com.devsmart.ubjson;
 
+import java.util.Arrays;
+
 public class UBInt16Array extends UBArray {
 
     private final short[] mArray;
@@ -34,5 +36,10 @@ public class UBInt16Array extends UBArray {
 
     public short[] getValues() {
         return mArray;
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(mArray);
     }
 }

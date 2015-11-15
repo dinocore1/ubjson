@@ -1,6 +1,8 @@
 package com.devsmart.ubjson;
 
 
+import java.util.Arrays;
+
 public class UBFloat64Array extends UBArray {
 
     private final double[] mArray;
@@ -35,5 +37,10 @@ public class UBFloat64Array extends UBArray {
 
     public double[] getValues() {
         return mArray;
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(mArray);
     }
 }

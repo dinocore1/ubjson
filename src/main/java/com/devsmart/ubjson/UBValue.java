@@ -435,13 +435,6 @@ public abstract class UBValue implements Comparable<UBValue> {
                 retval = asString().hashCode();
                 break;
 
-            case Array:
-                retval = asArray().hashCode();
-                break;
-
-            case Object:
-                retval = asObject().hashCode();
-                break;
         }
         return retval;
     }
