@@ -8,13 +8,17 @@ import java.util.TreeMap;
 
 public final class UBObject extends UBValue implements Map<String, UBValue> {
 
+    /**
+     * a tree map is used here to ensure that the keys are always sorted. This
+     * is useful when calculating {@code hashCode()}.
+     */
     private TreeMap<String, UBValue> mValue;
 
-    public UBObject() {
+    UBObject() {
         this(new TreeMap<String, UBValue>());
     }
 
-    public UBObject(TreeMap<String, UBValue> value) {
+    UBObject(TreeMap<String, UBValue> value) {
         mValue = value;
     }
 
@@ -90,5 +94,18 @@ public final class UBObject extends UBValue implements Map<String, UBValue> {
             retval ^= entry.getKey().hashCode() + entry.getValue().hashCode();
         }
         return retval;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) {
+            return false;
+        }
+        if(!(obj instanceof UBObject)) {
+            return false;
+        }
+
+        UBObject b = (UBObject) obj;
+        return mValue.equals(b.mValue);
     }
 }

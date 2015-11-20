@@ -1,6 +1,9 @@
 package com.devsmart.ubjson;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -133,8 +136,27 @@ public class UBValueFactory {
         return new UBArray(args);
     }
 
-    public static UBObject createObject(Map<String, UBValue> value) {
-        return new UBObject(new TreeMap<String, UBValue>(value));
+    public static UBArray createArray(Iterable values) {
+        ArrayList<UBValue> newArray = new ArrayList<UBValue>();
+        for(Object obj : values) {
+            newArray.add(createValue(obj));
+        }
+        return createArray(newArray.toArray(new UBValue[newArray.size()]));
+    }
+
+    public static UBObject createObject(Map map) {
+        TreeMap<String, UBValue> newMap = new TreeMap<String, UBValue>();
+        Iterator it = map.entrySet().iterator();
+        while(it.hasNext()) {
+            Map.Entry e = (Map.Entry)it.next();
+            if(!(e.getKey() instanceof String)) {
+                throw new IllegalArgumentException("key is not a String");
+            } else {
+                newMap.put((String) e.getKey(), createValue(e.getValue()));
+            }
+        }
+
+        return new UBObject(newMap);
     }
 
     public static UBObject createObject() {
@@ -146,6 +168,30 @@ public class UBValueFactory {
             return createNull();
         } else {
             return value;
+        }
+    }
+
+    public static UBValue createValue(Object obj) {
+        if(obj == null) {
+            return createNull();
+        } else if(obj instanceof UBValue) {
+            return (UBValue) obj;
+        } else if(obj instanceof Boolean){
+            return createBool(((Boolean) obj));
+        } else if(obj instanceof Integer) {
+            return createInt(((Integer) obj).longValue());
+        } else if(obj instanceof Double) {
+            return createFloat64(((Double) obj));
+        } else if(obj instanceof Float) {
+            return createFloat32(((Float) obj));
+        } else if(obj instanceof String) {
+            return createString(((String) obj));
+        } else if(obj instanceof Map) {
+            return createObject((Map) obj);
+        } else if(obj instanceof Iterable) {
+            return createArray((Iterable) obj);
+        } else {
+            throw new IllegalArgumentException("unknown object type: " + obj.getClass().getSimpleName());
         }
     }
 }

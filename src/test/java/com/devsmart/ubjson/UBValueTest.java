@@ -84,6 +84,31 @@ public class UBValueTest {
     }
 
     @Test
+    public void testHashCode() {
+        UBValue v;
+
+        v = UBValueFactory.createObject();
+        final int emptyObjHash = v.hashCode();
+
+        v = UBValueFactory.createObject();
+        assertEquals(emptyObjHash, v.hashCode());
+
+        UBObject a = v.asObject();
+        a.put("hello", UBValueFactory.createString("world"));
+        a.put("a", UBValueFactory.createInt(8));
+
+        assertNotEquals(emptyObjHash, a.hashCode());
+
+        UBObject b = UBValueFactory.createObject();
+        b.put("a", UBValueFactory.createInt(8));
+        b.put("hello", UBValueFactory.createString("world"));
+
+        assertEquals(a.hashCode(), b.hashCode());
+
+        assertTrue(a.equals(b));
+    }
+
+    @Test
     public void testHashEquals() {
         HashSet<UBValue> set = new HashSet<UBValue>();
 
