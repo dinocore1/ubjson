@@ -98,8 +98,12 @@ public abstract class UBValue implements Comparable<UBValue> {
     }
 
     public String asString() {
-        UBString thiz = (UBString)this;
-        return thiz.getString();
+        if(this.isNull()) {
+            return null;
+        } else {
+            UBString thiz = (UBString) this;
+            return thiz.getString();
+        }
     }
 
     public byte[] asByteArray() {
