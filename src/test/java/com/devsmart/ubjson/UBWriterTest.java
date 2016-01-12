@@ -4,6 +4,7 @@ package com.devsmart.ubjson;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
@@ -143,6 +144,25 @@ public class UBWriterTest {
             assertEquals(']', array[6]);
 
         }
+
+    }
+
+    @Test
+    public void testWriteObject() throws Exception {
+        ByteArrayOutputStream out;
+        UBWriter writer;
+        byte[] array;
+
+        UBObject obj = UBValueFactory.createObject();
+        obj.put("hello", UBValueFactory.createString("world"));
+        obj.put("array", UBValueFactory.createArray(new int[] {1,2,3}));
+
+        out = new ByteArrayOutputStream();
+        writer = new UBWriter(out);
+        writer.write(obj);
+        array = out.toByteArray();
+
+        assertEquals('{', array[0]);
 
     }
 
