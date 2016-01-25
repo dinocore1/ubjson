@@ -44,6 +44,13 @@ public class UBReader implements Closeable {
                 | (readControl() & 0xFF) << 8 | (readControl() & 0xFF) );
     }
 
+    private long readInt64() throws IOException {
+        return ((long)readControl() & 0xFF) << 56 | ((long)readControl() & 0xFF) << 48
+                | ((long)readControl() & 0xFF) << 40 | ((long)readControl() & 0xFF) << 32
+                | ((long)readControl() & 0xFF) << 24 | ((long)readControl() & 0xFF) << 16
+                | ((long)readControl() & 0xFF) << 8 | ((long)readControl() & 0xFF);
+    }
+
     private long readInt(byte control) throws IOException {
         long value;
         switch (control) {
@@ -64,10 +71,7 @@ public class UBReader implements Closeable {
                 break;
 
             case UBValue.MARKER_INT64:
-                value = ((long)readControl() & 0xFF) << 56 | ((long)readControl() & 0xFF) << 48
-                        | ((long)readControl() & 0xFF) << 40 | ((long)readControl() & 0xFF) << 32
-                        | ((long)readControl() & 0xFF) << 24 | ((long)readControl() & 0xFF) << 16
-                        | ((long)readControl() & 0xFF) << 8 | ((long)readControl() & 0xFF);
+                value = readInt64();
                 break;
 
             default:
@@ -144,6 +148,14 @@ public class UBReader implements Closeable {
         return data;
     }
 
+    private long[] readOptimizedArrayInt64(int size) throws IOException {
+        long[] data = new long[size];
+        for(int i=0;i<size;i++) {
+            data[i] = readInt64();
+        }
+        return data;
+    }
+
     private float[] readOptimizedArrayFloat32(int size) throws IOException {
         float[] data = new float[size];
         for(int i=0;i<size;i++){
@@ -201,6 +213,9 @@ public class UBReader implements Closeable {
 
                 case UBValue.MARKER_INT32:
                     return UBValueFactory.createArray(readOptimizedArrayInt32(size));
+
+                case UBValue.MARKER_INT64:
+                    return UBValueFactory.createArray(readOptimizedArrayInt64(size));
 
                 case UBValue.MARKER_FLOAT32:
                     return UBValueFactory.createArray(readOptimizedArrayFloat32(size));

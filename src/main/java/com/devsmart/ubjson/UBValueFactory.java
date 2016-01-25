@@ -124,6 +124,18 @@ public class UBValueFactory {
         }
     }
 
+    public static UBInt64Array createArray(long[] value) {
+        return new UBInt64Array(value);
+    }
+
+    public static UBValue createArrayOrNull(long[] value) {
+        if(value == null) {
+            return createNull();
+        } else {
+            return createArray(value);
+        }
+    }
+
     public static UBFloat32Array createArray(float[] value) {
         return new UBFloat32Array(value);
     }

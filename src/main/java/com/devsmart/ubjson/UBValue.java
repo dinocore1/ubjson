@@ -270,6 +270,15 @@ public abstract class UBValue implements Comparable<UBValue> {
                 break;
             }
 
+            case Int64: {
+                long[] data = ((UBInt64Array)array).getValues();
+                retval = new boolean[data.length];
+                for (int i = 0; i < data.length; i++) {
+                    retval[i] = data[i] > 0;
+                }
+                break;
+            }
+
             case Float32: {
                 float[] data = ((UBFloat32Array) array).getValues();
                 retval = new boolean[data.length];
@@ -316,6 +325,15 @@ public abstract class UBValue implements Comparable<UBValue> {
 
             case Int32: {
                 int[] data = ((UBInt32Array) array).getValues();
+                retval = new short[data.length];
+                for (int i = 0; i < data.length; i++) {
+                    retval[i] = (short) data[i];
+                }
+                break;
+            }
+
+            case Int64: {
+                long[] data = ((UBInt64Array) array).getValues();
                 retval = new short[data.length];
                 for (int i = 0; i < data.length; i++) {
                     retval[i] = (short) data[i];
@@ -376,6 +394,15 @@ public abstract class UBValue implements Comparable<UBValue> {
                 break;
             }
 
+            case Int64: {
+                long[] data = ((UBInt64Array) array).getValues();
+                retval = new int[data.length];
+                for (int i = 0; i < data.length; i++) {
+                    retval[i] = (int) data[i];
+                }
+                break;
+            }
+
             case Float32: {
                 float[] data = ((UBFloat32Array) array).getValues();
                 retval = new int[data.length];
@@ -390,6 +417,68 @@ public abstract class UBValue implements Comparable<UBValue> {
                 retval = new int[data.length];
                 for (int i = 0; i < data.length; i++) {
                     retval[i] = (int) data[i];
+                }
+                break;
+            }
+
+
+            default:
+                throw new RuntimeException("not an int32[] type");
+        }
+
+        return retval;
+    }
+
+    public long[] asInt64Array() {
+        long[] retval;
+        UBArray array = asArray();
+        switch(array.getStrongType()){
+            case Int8: {
+                byte[] data = ((UBInt8Array) array).getValues();
+                retval = new long[data.length];
+                for (int i = 0; i < data.length; i++) {
+                    retval[i] = data[i];
+                }
+                break;
+            }
+
+            case Int16: {
+                short[] data = ((UBInt16Array) array).getValues();
+                retval = new long[data.length];
+                for (int i = 0; i < data.length; i++) {
+                    retval[i] = data[i];
+                }
+                break;
+            }
+
+            case Int32: {
+                int[] data = ((UBInt32Array) array).getValues();
+                retval = new long[data.length];
+                for (int i = 0; i < data.length; i++) {
+                    retval[i] = data[i];
+                }
+                break;
+            }
+
+            case Int64: {
+                retval = ((UBInt64Array) array).getValues();
+                break;
+            }
+
+            case Float32: {
+                float[] data = ((UBFloat32Array) array).getValues();
+                retval = new long[data.length];
+                for (int i = 0; i < data.length; i++) {
+                    retval[i] = (long) data[i];
+                }
+                break;
+            }
+
+            case Float64: {
+                double[] data = ((UBFloat64Array) array).getValues();
+                retval = new long[data.length];
+                for (int i = 0; i < data.length; i++) {
+                    retval[i] = (long) data[i];
                 }
                 break;
             }
@@ -426,6 +515,15 @@ public abstract class UBValue implements Comparable<UBValue> {
 
             case Int32: {
                 int[] data = ((UBInt32Array) array).getValues();
+                retval = new float[data.length];
+                for (int i = 0; i < data.length; i++) {
+                    retval[i] = data[i];
+                }
+                break;
+            }
+
+            case Int64: {
+                long[] data = ((UBInt64Array) array).getValues();
                 retval = new float[data.length];
                 for (int i = 0; i < data.length; i++) {
                     retval[i] = data[i];
@@ -478,6 +576,15 @@ public abstract class UBValue implements Comparable<UBValue> {
 
             case Int32: {
                 int[] data = ((UBInt32Array) array).getValues();
+                retval = new double[data.length];
+                for (int i = 0; i < data.length; i++) {
+                    retval[i] = data[i];
+                }
+                break;
+            }
+
+            case Int64: {
+                long[] data = ((UBInt64Array) array).getValues();
                 retval = new double[data.length];
                 for (int i = 0; i < data.length; i++) {
                     retval[i] = data[i];

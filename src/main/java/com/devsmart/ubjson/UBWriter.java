@@ -162,6 +162,18 @@ public class UBWriter implements Closeable {
         }
     }
 
+    public void writeInt64Array(long[] value) throws IOException {
+        mOutputStream.write(UBValue.MARKER_ARRAY_START);
+        mOutputStream.write(UBValue.MARKER_OPTIMIZED_TYPE);
+        mOutputStream.write(UBValue.MARKER_INT64);
+        mOutputStream.write(UBValue.MARKER_OPTIMIZED_SIZE);
+        writeInt(value.length);
+
+        for(int i=0;i<value.length;i++){
+            writeRawInt64(value[i]);
+        }
+    }
+
     public void writeFloat32Array(float[] value) throws IOException {
         mOutputStream.write(UBValue.MARKER_ARRAY_START);
         mOutputStream.write(UBValue.MARKER_OPTIMIZED_TYPE);
@@ -222,6 +234,10 @@ public class UBWriter implements Closeable {
 
             case Int32:
                 writeInt32Array( ((UBInt32Array)value).getValues() );
+                break;
+
+            case Int64:
+                writeInt64Array( ((UBInt64Array)value).getValues() );
                 break;
 
             case Float32:
