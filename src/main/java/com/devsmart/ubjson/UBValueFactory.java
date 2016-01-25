@@ -72,6 +72,22 @@ public class UBValueFactory {
 
     }
 
+    public static UBInt8Array createArray(boolean[] value) {
+        byte[] data = new byte[value.length];
+        for(int i=0;i<data.length;i++) {
+            data[i] = (byte) (value[i] ? 1 : 0);
+        }
+        return createArray(data);
+    }
+
+    public static UBValue createArrayOrNull(boolean[] value) {
+        if(value == null) {
+            return createNull();
+        } else {
+            return createArray(value);
+        }
+    }
+
     public static UBInt8Array createArray(byte[] value) {
         return new UBInt8Array(value);
     }
