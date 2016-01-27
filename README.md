@@ -9,7 +9,7 @@ Include in gradle project:
 
 ```
 dependencies {
-  compile 'com.dev-smart:ubjson:0.1.1'
+  compile 'com.dev-smart:ubjson:0.1.2'
 }
 ```
 

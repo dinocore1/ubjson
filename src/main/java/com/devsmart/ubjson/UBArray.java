@@ -10,7 +10,8 @@ public class UBArray extends UBValue {
         Int32,
         Int64,
         Float32,
-        Float64
+        Float64,
+        String
     }
 
     private UBValue[] mValue;

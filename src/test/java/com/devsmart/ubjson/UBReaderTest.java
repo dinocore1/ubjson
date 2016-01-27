@@ -180,6 +180,28 @@ public class UBReaderTest {
     }
 
     @Test
+    public void readOptimizedArrayString() throws Exception {
+        byte[] data;
+        UBReader reader;
+        UBValue value;
+
+        data = new byte[] {'[', '$', 'S', '#', 'U', 0x2, 'U', 0x1, 'a', 'U', 0x1, 'b' };
+        reader = new UBReader(new ByteArrayInputStream(data));
+        value = reader.read();
+        assertTrue(value.isArray());
+        UBArray array = value.asArray();
+        assertEquals(2, array.size());
+        assertTrue(array.get(0).isString());
+        assertEquals("a", array.get(0).asString());
+
+        assertTrue(array.get(1).isString());
+        assertEquals("b", array.get(1).asString());
+
+        assertTrue(array.isStronglyTyped());
+        assertEquals(UBArray.ArrayType.String, array.getStrongType());
+    }
+
+    @Test
     public void readObject() throws Exception {
         byte[] data;
         UBReader reader;

@@ -124,4 +124,27 @@ public class UBValueTest {
         assertEquals(2, set.size());
 
     }
+
+    @Test
+    public void testStringArray() {
+
+        String[] value = new String[]{"a", "b", "c"};
+        UBArray ubarray = UBValueFactory.createArray(value);
+        assertNotNull(ubarray);
+        assertTrue(ubarray.isArray());
+        assertTrue(ubarray.isStronglyTyped());
+        assertEquals(UBArray.ArrayType.String, ubarray.getStrongType());
+        assertEquals(3, ubarray.size());
+        assertEquals("a", ubarray.get(0).asString());
+        assertEquals("b", ubarray.get(1).asString());
+        assertEquals("c", ubarray.get(2).asString());
+
+        String[] output = ubarray.asStringArray();
+        assertNotNull(output);
+        assertEquals(3, output.length);
+        assertEquals("a", output[0]);
+        assertEquals("b", output[1]);
+        assertEquals("c", output[2]);
+
+    }
 }

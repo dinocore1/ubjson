@@ -172,6 +172,14 @@ public class UBReader implements Closeable {
         return data;
     }
 
+    private String[] readOptimizedArrayString(int size) throws IOException {
+        String[] data = new String[size];
+        for(int i=0;i<size;i++) {
+            data[i] = new String(readString(readControl()), UBString.UTF_8);
+        }
+        return data;
+    }
+
     private UBValue[] readOptimizedArray(int size, byte type) throws IOException {
         UBValue[] retval = new UBValue[size];
         for(int i=0;i<size;i++) {
@@ -222,6 +230,9 @@ public class UBReader implements Closeable {
 
                 case UBValue.MARKER_FLOAT64:
                     return UBValueFactory.createArray(readOptimizedArrayFloat64(size));
+
+                case UBValue.MARKER_STRING:
+                    return UBValueFactory.createArray(readOptimizedArrayString(size));
 
                 default:
                     return UBValueFactory.createArray(readOptimizedArray(size, type));

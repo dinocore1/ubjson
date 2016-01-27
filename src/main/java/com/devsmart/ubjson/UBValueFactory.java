@@ -160,6 +160,18 @@ public class UBValueFactory {
         }
     }
 
+    public static UBStringArray createArray(String[] value) {
+        return new UBStringArray(value);
+    }
+
+    public static UBValue createArrayOrNull(String[] value) {
+        if(value == null) {
+            return createNull();
+        } else {
+            return createArray(value);
+        }
+    }
+
     public static UBArray createArray(UBValue... args) {
         return new UBArray(args);
     }

@@ -614,6 +614,16 @@ public abstract class UBValue implements Comparable<UBValue> {
         return retval;
     }
 
+    public String[] asStringArray() {
+        String[] retval;
+
+        UBArray array = asArray();
+        if(UBArray.ArrayType.String != array.getStrongType()){
+            throw new RuntimeException("not a strongly-typed string array");
+        }
+        return ((UBStringArray)array).getValues();
+    }
+
     public boolean isObject() {
         return getType() == Type.Object;
     }

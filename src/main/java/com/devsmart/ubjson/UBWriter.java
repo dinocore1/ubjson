@@ -198,6 +198,22 @@ public class UBWriter implements Closeable {
         }
     }
 
+    public void writeStringArray(String[] value) throws IOException {
+        mOutputStream.write(UBValue.MARKER_ARRAY_START);
+        mOutputStream.write(UBValue.MARKER_OPTIMIZED_TYPE);
+        mOutputStream.write(UBValue.MARKER_STRING);
+        mOutputStream.write(UBValue.MARKER_OPTIMIZED_SIZE);
+        writeInt(value.length);
+
+        for(int i=0;i<value.length;i++){
+            String str = value[i];
+            if(str == null) {
+                throw new IOException("cannot serialize null string in strongly-typed array");
+            }
+            writeDataArray(str.getBytes(UBString.UTF_8));
+        }
+    }
+
     public void writeGenericeArray(UBArray value) throws IOException {
         mOutputStream.write(UBValue.MARKER_ARRAY_START);
         mOutputStream.write(UBValue.MARKER_OPTIMIZED_SIZE);
@@ -208,6 +224,10 @@ public class UBWriter implements Closeable {
         for(int i=0;i<size;i++){
             write(value.get(i));
         }
+    }
+
+    private void writeRawString(byte[] data) throws IOException {
+        writeDataArray(data);
     }
 
     public void writeString(UBString string) throws IOException {
@@ -246,6 +266,10 @@ public class UBWriter implements Closeable {
 
             case Float64:
                 writeFloat64Array(((UBFloat64Array)value).getValues());
+                break;
+
+            case String:
+                writeStringArray(((UBStringArray) value).getValues());
                 break;
 
             default:

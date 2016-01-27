@@ -166,5 +166,38 @@ public class UBWriterTest {
 
     }
 
+    @Test
+    public void testWriteStringArray() throws Exception {
+        ByteArrayOutputStream out;
+        UBWriter writer;
+        byte[] array;
+
+        out = new ByteArrayOutputStream();
+        writer = new UBWriter(out);
+        writer.write(UBValueFactory.createArray(new String[]{"a", "b", "c"}));
+        array = out.toByteArray();
+
+        assertEquals('[', array[0]);
+        assertEquals('$', array[1]);
+        assertEquals('S', array[2]);
+        assertEquals('#', array[3]);
+        assertEquals('U', array[4]);
+        assertEquals(0x3, array[5]);
+
+        assertEquals('U', array[6]);
+        assertEquals(0x1, array[7]);
+        assertEquals('a', array[8]);
+
+        assertEquals('U', array[9]);
+        assertEquals(0x1, array[10]);
+        assertEquals('b', array[11]);
+
+        assertEquals('U', array[12]);
+        assertEquals(0x1, array[13]);
+        assertEquals('c', array[14]);
+
+        assertEquals(15, array.length);
+    }
+
 
 }
