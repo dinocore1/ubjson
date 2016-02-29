@@ -110,6 +110,32 @@ public class UBWriterTest {
     }
 
     @Test
+    public void testWriteLongInt() throws IOException {
+        UBValue value;
+        ByteArrayOutputStream out;
+        UBWriter writer;
+        byte[] array;
+
+        long longValue = Long.valueOf("1456707337000");
+
+        out = new ByteArrayOutputStream();
+        writer = new UBWriter(out);
+        value = UBValueFactory.createInt(longValue);
+        writer.write(value);
+        array = out.toByteArray();
+        assertEquals(9, array.length);
+        assertEquals('L', array[0]);
+        assertEquals(0x28, (short)(0xFF & array[8]));
+        assertEquals(0xFB, (short)(0xFF & array[7]));
+        assertEquals(0x85, (short)(0xFF & array[6]));
+        assertEquals(0x2A, (short)(0xFF & array[5]));
+        assertEquals(0x53, (short)(0xFF & array[4]));
+        assertEquals(0x01, (short)(0xFF & array[3]));
+        assertEquals(0x00, (short)(0xFF & array[2]));
+        assertEquals(0x00, (short)(0xFF & array[1]));
+    }
+
+    @Test
     public void testWriteArray() throws IOException {
         UBValue value;
         ByteArrayOutputStream out;

@@ -82,14 +82,14 @@ public class UBWriter implements Closeable {
     }
 
     private void writeRawInt64(long value) throws IOException {
-        mOutputStream.write((int) ((value >> 56)));
-        mOutputStream.write((int) ((value >> 48)));
-        mOutputStream.write((int) ((value >> 40)));
-        mOutputStream.write((int) ((value >> 32)));
-        mOutputStream.write((int) ((value >> 24)));
-        mOutputStream.write((int) ((value >> 16)));
-        mOutputStream.write((int) ((value >> 8)));
-        mOutputStream.write((int) (value));
+        mOutputStream.write((byte) (0xff & ((value >> 56))));
+        mOutputStream.write((byte) (0xff & ((value >> 48))));
+        mOutputStream.write((byte) (0xff & ((value >> 40))));
+        mOutputStream.write((byte) (0xff & ((value >> 32))));
+        mOutputStream.write((byte) (0xff & ((value >> 24))));
+        mOutputStream.write((byte) (0xff & ((value >> 16))));
+        mOutputStream.write((byte) (0xff & ((value >> 8))));
+        mOutputStream.write((byte) (0xff & value));
     }
 
     public void writeInt(long value) throws IOException {
@@ -315,11 +315,11 @@ public class UBWriter implements Closeable {
                 break;
 
             case Int32:
-                writeInt32((int) value.asInt());
+                writeInt32(value.asInt());
                 break;
 
             case Int64:
-                writeInt64(value.asInt());
+                writeInt64(value.asLong());
                 break;
 
             case Float32:

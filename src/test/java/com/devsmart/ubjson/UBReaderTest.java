@@ -96,6 +96,16 @@ public class UBReaderTest {
     }
 
     @Test
+    public void readInt64() throws Exception {
+        byte[] data = new byte[]{ 'L', (byte)0x00, (byte)0x00, (byte)0x01, (byte)0x53, (byte)0x2A, (byte)0x85, (byte)0xFB, (byte)0x28 };
+        UBReader reader = new UBReader(new ByteArrayInputStream(data));
+        UBValue value = reader.read();
+        assertTrue(value.isNumber());
+
+        assertEquals((long)Long.valueOf("1456707337000"), value.asLong());
+    }
+
+    @Test
     public void readFloat32() throws Exception {
         byte[] data;
         UBReader reader;
