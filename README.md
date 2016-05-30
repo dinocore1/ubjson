@@ -1,17 +1,11 @@
 # UBJSON for Java #
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.dev-smart/ubjson/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.dev-smart/ubjson)
+
 [Universal Binary JSON](http://ubjson.org/) is a binary JSON specification
 designed for ultimate read performance; bringing simplicity, size and
 performance all together into a single specification that is 100% compatible
 with JSON.
-
-Include in gradle project:
-
-```
-dependencies {
-  compile 'com.dev-smart:ubjson:0.1.2'
-}
-```
 
 Write a UBValue to a stream:
 
