@@ -147,4 +147,22 @@ public class UBValueTest {
         assertEquals("c", output[2]);
 
     }
+
+    @Test
+    public void testFloat32AsInt() {
+        UBFloat32 pi = UBValueFactory.createFloat32(3.14f);
+        assertEquals(3, pi.asInt());
+    }
+
+    @Test
+    public void testFloat64AsInt() {
+        UBFloat64 pi = UBValueFactory.createFloat64(3.14);
+        assertEquals(3, pi.asInt());
+    }
+
+    @Test
+    public void testIntAsFloat() {
+        UBValue value = UBValueFactory.createInt(3);
+        assertEquals(3.0f, value.asFloat32(), 0.000001);
+    }
 }
