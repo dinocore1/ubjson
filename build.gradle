@@ -5,7 +5,7 @@ apply plugin: 'signing'
 
 
 group = 'com.dev-smart'
-version = '0.1.3-SNAPSHOT'
+version = '0.1.4-SNAPSHOT'
 description = 'UBJSON lib for Java'
 
 repositories {
