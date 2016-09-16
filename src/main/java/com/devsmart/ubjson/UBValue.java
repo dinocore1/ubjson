@@ -179,6 +179,21 @@ public abstract class UBValue implements Comparable<UBValue> {
                 retval = (float)((UBFloat64)this).getDouble();
                 break;
 
+            case Int8:
+                return ((UBInt8)this).getInt();
+
+            case Uint8:
+                return ((UBUInt8)this).getInt();
+
+            case Int16:
+                return ((UBInt16)this).getInt();
+
+            case Int32:
+                return ((UBInt32)this).getInt();
+
+            case Int64:
+                return (long)((UBInt64)this).getInt();
+
             case String:
                 retval = Float.parseFloat(asString());
 
@@ -198,6 +213,21 @@ public abstract class UBValue implements Comparable<UBValue> {
             case Float64:
                 retval = ((UBFloat64)this).getDouble();
                 break;
+
+            case Int8:
+                return ((UBInt8)this).getInt();
+
+            case Uint8:
+                return ((UBUInt8)this).getInt();
+
+            case Int16:
+                return ((UBInt16)this).getInt();
+
+            case Int32:
+                return ((UBInt32)this).getInt();
+
+            case Int64:
+                return (long)((UBInt64)this).getInt();
 
             case String:
                 retval = Double.parseDouble(asString());
@@ -236,8 +266,8 @@ public abstract class UBValue implements Comparable<UBValue> {
 
     /**
      * Interprets a strongly-typed number array to array of booleans.
-     * If a value found in the array is > 0 return true, false otherwise.
-     * @return
+     * If a value found in the array is greater than 0 return true, false otherwise.
+     * @return booleans
      */
     public boolean[] asBoolArray() {
         boolean[] retval;
