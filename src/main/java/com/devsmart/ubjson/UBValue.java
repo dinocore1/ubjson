@@ -134,6 +134,8 @@ public abstract class UBValue implements Comparable<UBValue> {
                 return (int)((UBFloat32)this).getFloat();
             case Float64:
                 return (int)((UBFloat64)this).getDouble();
+            case String:
+                return Integer.parseInt(asString());
 
             default:
                 throw new RuntimeException("not a number type");
@@ -161,6 +163,8 @@ public abstract class UBValue implements Comparable<UBValue> {
                 return (long)((UBFloat32)this).getFloat();
             case Float64:
                 return (long)((UBFloat64)this).getDouble();
+            case String:
+                return Long.parseLong(asString());
 
             default:
                 throw new RuntimeException("not a number type");
@@ -169,73 +173,51 @@ public abstract class UBValue implements Comparable<UBValue> {
     }
 
     public float asFloat32() {
-        float retval;
         switch (getType()) {
             case Float32:
-                retval = ((UBFloat32)this).getFloat();
-                break;
-
+                return ((UBFloat32)this).getFloat();
             case Float64:
-                retval = (float)((UBFloat64)this).getDouble();
-                break;
-
+                return (float)((UBFloat64)this).getDouble();
             case Int8:
                 return ((UBInt8)this).getInt();
-
             case Uint8:
                 return ((UBUInt8)this).getInt();
-
             case Int16:
                 return ((UBInt16)this).getInt();
-
             case Int32:
                 return ((UBInt32)this).getInt();
-
             case Int64:
-                return (long)((UBInt64)this).getInt();
-
+                return ((UBInt64)this).getInt();
             case String:
-                retval = Float.parseFloat(asString());
+                return Float.parseFloat(asString());
 
             default:
                 throw new RuntimeException("not a float type");
         }
-        return retval;
     }
 
     public double asFloat64() {
-        double retval;
         switch (getType()) {
             case Float32:
-                retval = ((UBFloat32)this).getFloat();
-                break;
-
+                return ((UBFloat32)this).getFloat();
             case Float64:
-                retval = ((UBFloat64)this).getDouble();
-                break;
-
+                return ((UBFloat64)this).getDouble();
             case Int8:
                 return ((UBInt8)this).getInt();
-
             case Uint8:
                 return ((UBUInt8)this).getInt();
-
             case Int16:
                 return ((UBInt16)this).getInt();
-
             case Int32:
                 return ((UBInt32)this).getInt();
-
             case Int64:
-                return (long)((UBInt64)this).getInt();
-
+                return ((UBInt64)this).getInt();
             case String:
-                retval = Double.parseDouble(asString());
+                return Double.parseDouble(asString());
 
             default:
                 throw new RuntimeException("not a float type");
         }
-        return retval;
     }
 
     public boolean isArray() {
