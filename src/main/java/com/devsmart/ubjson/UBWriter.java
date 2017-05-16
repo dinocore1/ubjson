@@ -3,6 +3,7 @@ package com.devsmart.ubjson;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map;
 
@@ -210,7 +211,7 @@ public class UBWriter implements Closeable {
             if(str == null) {
                 throw new IOException("cannot serialize null string in strongly-typed array");
             }
-            writeDataArray(str.getBytes(UBString.UTF_8));
+            writeData(str.getBytes(UBString.UTF_8));
         }
     }
 
@@ -227,18 +228,32 @@ public class UBWriter implements Closeable {
     }
 
     private void writeRawString(byte[] data) throws IOException {
-        writeDataArray(data);
+        writeData(data);
     }
 
     public void writeString(UBString string) throws IOException {
         mOutputStream.write(UBValue.MARKER_STRING);
         byte[] data = string.getData();
-        writeDataArray(data);
+        writeData(data);
     }
 
-    public void writeDataArray(byte[] data) throws IOException {
+    public void writeData(byte[] data) throws IOException {
         writeInt(data.length);
         mOutputStream.write(data);
+    }
+
+    public void writeData(long len, InputStream in) throws IOException {
+        writeInt(len);
+        long bytesLeft = len;
+        byte[] buf = new byte[4096];
+        while(bytesLeft > 0) {
+            int bytesRead = in.read(buf, 0, (int) Math.min(buf.length, bytesLeft));
+            if(bytesRead < 0) {
+                throw new IOException("input stream too short");
+            }
+            mOutputStream.write(buf, 0, bytesRead);
+            bytesLeft -= bytesRead;
+        }
     }
 
     public void writeArray(UBArray value) throws IOException {
@@ -282,7 +297,7 @@ public class UBWriter implements Closeable {
     public void writeObject(UBObject object) throws IOException {
         mOutputStream.write(UBValue.MARKER_OBJ_START);
         for(Map.Entry<String, UBValue> entry : object.entrySet()) {
-            writeDataArray(entry.getKey().getBytes(UBString.UTF_8));
+            writeData(entry.getKey().getBytes(UBString.UTF_8));
             write(entry.getValue());
         }
         mOutputStream.write(UBValue.MARKER_OBJ_END);

@@ -4,7 +4,9 @@ package com.devsmart.ubjson;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.nio.charset.Charset;
+import java.util.Random;
 
 import static org.junit.Assert.*;
 
@@ -225,5 +227,30 @@ public class UBReaderTest {
         assertTrue(obj.containsKey("lat"));
         assertEquals(5, obj.get("lat").asInt());
         assertEquals(255, obj.get("lng").asInt());
+    }
+
+    @Test
+    public void readData() throws Exception {
+        byte[] data;
+        UBReader reader;
+
+        byte[] expected = new byte[10000];
+        Random r = new Random(1);
+        r.nextBytes(expected);
+
+        data = new byte[10003];
+        data[0] = 'I';
+        data[1] = 39;
+        data[2] = 16;
+        System.arraycopy(expected, 0, data, 3, 10000);
+
+        reader = new UBReader(new ByteArrayInputStream(data));
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        reader.readData(out);
+        byte[] actual = out.toByteArray();
+
+        assertEquals(10000, actual.length);
+        assertArrayEquals(expected, actual);
     }
 }

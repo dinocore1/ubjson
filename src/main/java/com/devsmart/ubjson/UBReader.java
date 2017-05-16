@@ -124,6 +124,20 @@ public class UBReader implements Closeable {
         return value;
     }
 
+    public void readData(OutputStream out) throws IOException {
+        long len = readInt(readControl());
+        long bytesLeft = len;
+        byte[] buf = new byte[4096];
+        while(bytesLeft > 0) {
+            int bytesRead = mInputStream.read(buf, 0, (int) Math.min(buf.length, bytesLeft));
+            if(bytesRead < 0) {
+                throw new IOException("stream too short");
+            }
+            out.write(buf, 0, bytesRead);
+            bytesLeft -= bytesRead;
+        }
+    }
+
     private byte[] readOptimizedArrayInt8(int size) throws IOException {
         byte[] data = new byte[size];
         for(int i=0;i<size;i++){

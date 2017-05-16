@@ -2,11 +2,13 @@ package com.devsmart.ubjson;
 
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Random;
+
+import static org.junit.Assert.*;
 
 public class UBWriterTest {
 
@@ -223,6 +225,32 @@ public class UBWriterTest {
         assertEquals('c', array[14]);
 
         assertEquals(15, array.length);
+    }
+
+    @Test
+    public void testWriteData() throws Exception {
+        ByteArrayOutputStream out;
+        UBWriter writer;
+        byte[] array;
+
+        out = new ByteArrayOutputStream();
+        writer = new UBWriter(out);
+
+        byte[] data = new byte[10000];
+        Random r = new Random(1);
+        r.nextBytes(data);
+
+        writer.writeData(data.length, new ByteArrayInputStream(data));
+        array = out.toByteArray();
+
+        assertEquals('I', array[0]);
+        assertEquals(39, array[1]);
+        assertEquals(16, array[2]);
+
+        byte[] actual = new byte[10000];
+        System.arraycopy(array, 3, actual, 0, 10000);
+        assertArrayEquals(data, actual);
+
     }
 
 
