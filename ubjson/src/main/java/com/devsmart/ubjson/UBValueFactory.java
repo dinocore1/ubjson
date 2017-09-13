@@ -33,6 +33,14 @@ public class UBValueFactory {
         return value >= min && value <= max;
     }
 
+    public static UBValue createNumber(Number value) {
+        if(value instanceof Integer) {
+            return createInt(value.longValue());
+        } else {
+            return createFloat64(value.doubleValue());
+        }
+    }
+
     public static UBValue createInt(long value) {
         if (inRange(value, 0, 255)) {
             return new UBUInt8(value);
