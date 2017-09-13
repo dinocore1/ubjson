@@ -1,5 +1,19 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
+    }
+}
 
+allprojects {
+    group = 'com.dev-smart'
+    version = '0.1.7-SNAPSHOT'
+    description = 'UBJSON lib for Java'
 
-group = 'com.dev-smart'
-version = '0.1.6'
-description = 'UBJSON lib for Java'
+    repositories {
+        mavenCentral()
+    }
+
+}

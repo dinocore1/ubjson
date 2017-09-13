@@ -1,12 +1,6 @@
 
 apply plugin: 'java'
-apply plugin: 'maven'
-apply plugin: 'signing'
-
-
-repositories {
-  jcenter()
-}
+apply plugin: 'com.bmuschko.nexus'
 
 dependencies {
   testCompile 'junit:junit:4.11'
@@ -18,64 +12,31 @@ compileJava {
   targetCompatibility = 1.6
 }
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
-  classifier = 'javadoc'
-  from 'build/docs/javadoc'
-}
+modifyPom {
+  project {
+    name 'ubjson'
+    description 'UBJSON lib for Java'
+    url 'http://github.com/dinocore1/ubjson'
 
-task sourceJar(type: Jar) {
-  classifier = 'sources'
-  from sourceSets.main.allSource
-}
-
-artifacts {
-  archives javadocJar
-  archives sourceJar
-}
-
-signing {
-  sign configurations.archives
-}
-
-uploadArchives {
-  repositories.mavenDeployer {
-
-    beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-    repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-      authentication(userName: sonatypeUsername, password: sonatypePassword)
+    scm {
+      url 'scm:git@github.com:dinocore1/ubjson.git'
+      connection 'scm:git@github.com:dinocore1/ubjson.git'
+      developerConnection 'scm:git@github.com:dinocore1/ubjson.git'
     }
 
-    snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-      authentication(userName: sonatypeUsername, password: sonatypePassword)
-    }
-
-    pom.project {
-      name 'ubjson'
-      description 'UBJSON lib for Java'
-      url 'http://github.com/dinocore1/ubjson'
-
-      scm {
-        url 'scm:git@github.com:dinocore1/ubjson.git'
-        connection 'scm:git@github.com:dinocore1/ubjson.git'
-        developerConnection 'scm:git@github.com:dinocore1/ubjson.git'
-      }
-
-      licenses {
-        license {
-          name 'MIT License'
-          url 'https://github.com/dinocore1/ubjson/blob/master/LICENSE.txt'
-          distribution 'repo'
-        }
-      }
-
-      developers {
-        developer {
-          id 'psoucy'
-          name 'Paul Soucy'
-        }
+    licenses {
+      license {
+        name 'MIT License'
+        url 'https://github.com/dinocore1/ubjson/blob/master/LICENSE.txt'
+        distribution 'repo'
       }
     }
 
+    developers {
+      developer {
+        id 'psoucy'
+        name 'Paul Soucy'
+      }
+    }
   }
 }

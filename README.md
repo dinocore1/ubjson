@@ -2,6 +2,9 @@
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.dev-smart/ubjson/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.dev-smart/ubjson)
 
+
+[![Build Status](https://travis-ci.org/dinocore1/ubjson.svg?branch=master)](https://travis-ci.org/dinocore1/ubjson)
+
 [Universal Binary JSON](http://ubjson.org/) is a binary JSON specification
 designed for ultimate read performance; bringing simplicity, size and
 performance all together into a single specification that is 100% compatible
