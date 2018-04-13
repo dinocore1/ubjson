@@ -1,9 +1,9 @@
 package com.devsmart.ubjson;
 
-
+import java.io.Serializable;
 import java.util.Comparator;
 
-public abstract class UBValue implements Comparable<UBValue> {
+public abstract class UBValue implements Comparable<UBValue>, Serializable {
 
     public static final byte MARKER_NULL = 'Z';
     public static final byte MARKER_TRUE = 'T';
