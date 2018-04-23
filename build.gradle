@@ -9,7 +9,7 @@ buildscript {
 
 allprojects {
     group = 'com.dev-smart'
-    version = '0.1.7-SNAPSHOT'
+    version = '0.1.7'
     description = 'UBJSON lib for Java'
 
     repositories {
