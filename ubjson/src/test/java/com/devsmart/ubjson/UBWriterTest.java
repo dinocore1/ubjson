@@ -228,6 +228,32 @@ public class UBWriterTest {
     }
 
     @Test
+    public void testWriteByteArray() throws Exception {
+
+        byte[] data = new byte[30];
+        Random r = new Random(1);
+        r.nextBytes(data);
+
+        UBValue value = UBValueFactory.createArray( UBValueFactory.createArray(data) );
+
+        ByteArrayOutputStream out;
+        UBWriter writer;
+
+        out = new ByteArrayOutputStream();
+        writer = new UBWriter(out);
+        writer.write(value);
+
+        ByteArrayInputStream input = new ByteArrayInputStream(out.toByteArray());
+        UBReader reader = new UBReader(input);
+
+        UBValue outputValue = reader.read();
+        assertTrue(outputValue.isArray());
+        assertEquals(1, outputValue.asArray().size());
+        assertEquals(30, outputValue.asArray().get(0).asByteArray().length);
+
+    }
+
+    @Test
     public void testWriteData() throws Exception {
         ByteArrayOutputStream out;
         UBWriter writer;
