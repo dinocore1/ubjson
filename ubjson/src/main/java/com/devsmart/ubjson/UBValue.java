@@ -23,6 +23,7 @@ public abstract class UBValue implements Comparable<UBValue>, Serializable {
     public static final byte MARKER_OBJ_END = '}';
     public static final byte MARKER_OPTIMIZED_TYPE = '$';
     public static final byte MARKER_OPTIMIZED_SIZE = '#';
+    private static final long serialVersionUID = -7268494408231769421L;
 
     public enum Type {
         Null,
