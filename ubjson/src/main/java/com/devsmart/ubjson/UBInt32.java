@@ -3,6 +3,7 @@ package com.devsmart.ubjson;
 
 public final class UBInt32 extends UBValue {
 
+    private static final long serialVersionUID = -6148485475873130549L;
     private int mValue;
 
     UBInt32(long value) {

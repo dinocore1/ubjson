@@ -6,6 +6,7 @@ import java.nio.charset.Charset;
 public class UBString extends UBValue {
 
     public static final Charset UTF_8 = Charset.forName("UTF-8");
+    private static final long serialVersionUID = -4376363541207856651L;
 
     private byte[] mData;
 

@@ -3,6 +3,7 @@ package com.devsmart.ubjson;
 
 public final class UBFloat32 extends UBValue {
 
+    private static final long serialVersionUID = 7488304650328539811L;
     private float mValue;
 
     UBFloat32(float value) {

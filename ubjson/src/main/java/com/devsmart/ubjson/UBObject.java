@@ -8,6 +8,7 @@ import java.util.TreeMap;
 
 public final class UBObject extends UBValue implements Map<String, UBValue> {
 
+    private static final long serialVersionUID = 6569912557379906502L;
     /**
      * a tree map is used here to ensure that the keys are always sorted. This
      * is useful when calculating {@code hashCode()}.
