@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 public class UBStringArray extends UBArray {
 
+    private static final long serialVersionUID = 9049462290900317723L;
     private final String[] mArray;
 
     UBStringArray(String[] value) {

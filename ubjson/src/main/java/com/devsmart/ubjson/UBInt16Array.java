@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 public class UBInt16Array extends UBArray {
 
+    private static final long serialVersionUID = 341107852354569328L;
     private final short[] mArray;
 
     UBInt16Array(short[] values) {

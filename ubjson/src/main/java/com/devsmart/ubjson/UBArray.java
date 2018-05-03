@@ -3,6 +3,8 @@ package com.devsmart.ubjson;
 
 public class UBArray extends UBValue {
 
+    private static final long serialVersionUID = 5220038976009456175L;
+
     public enum ArrayType {
         Generic,
         Int8,

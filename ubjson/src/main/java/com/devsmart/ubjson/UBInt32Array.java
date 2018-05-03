@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 public class UBInt32Array extends UBArray {
 
+    private static final long serialVersionUID = -5301755027222929313L;
     private final int[] mArray;
 
     UBInt32Array(int[] value) {

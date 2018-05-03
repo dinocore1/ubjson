@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 public class UBFloat64Array extends UBArray {
 
+    private static final long serialVersionUID = 3013582583695996143L;
     private final double[] mArray;
 
     UBFloat64Array(double[] values) {

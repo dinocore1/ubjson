@@ -4,6 +4,7 @@ package com.devsmart.ubjson;
 import java.util.Arrays;
 
 public final class UBInt8Array extends UBArray {
+    private static final long serialVersionUID = 1503819741239478254L;
     private final byte[] mArray;
 
     UBInt8Array(byte[] values) {
