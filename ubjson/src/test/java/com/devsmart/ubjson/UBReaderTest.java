@@ -192,6 +192,25 @@ public class UBReaderTest {
     }
 
     @Test
+    public void readOptimizedUInt8Array() throws Exception {
+        byte[] data;
+        UBReader reader;
+        UBValue value;
+
+        data = new byte[] {'[', '$', 'U', '#', 'U', (byte)2, (byte)0xff, (byte)0x01 };
+        reader = new UBReader(new ByteArrayInputStream(data));
+        value = reader.read();
+        assertTrue(value.isArray());
+        UBArray array = value.asArray();
+        assertEquals(2, array.size());
+        assertTrue(array.get(0).isNumber());
+        assertEquals(255, array.get(0).asInt());
+        assertTrue(array.get(1).isNumber());
+        assertEquals(1, array.get(1).asInt());
+
+    }
+
+    @Test
     public void readOptimizedArrayString() throws Exception {
         byte[] data;
         UBReader reader;

@@ -230,6 +230,9 @@ public class UBReader implements Closeable {
                 case UBValue.MARKER_INT8:
                     return UBValueFactory.createArray(readOptimizedArrayInt8(size));
 
+                case UBValue.MARKER_UINT8:
+                    return UBValueFactory.createUnsignedArray(readOptimizedArrayInt8(size));
+
                 case UBValue.MARKER_INT16:
                     return UBValueFactory.createArray(readOptimizedArrayInt16(size));
 
