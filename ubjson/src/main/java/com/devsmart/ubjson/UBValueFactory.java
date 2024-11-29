@@ -97,7 +97,11 @@ public class UBValueFactory {
     }
 
     public static UBInt8Array createArray(byte[] value) {
-        return new UBInt8Array(value);
+        return new UBInt8Array(value, false);
+    }
+
+    public static UBInt8Array createUnsignedArray(byte[] value) {
+        return new UBInt8Array(value, true);
     }
 
     public static UBValue createArrayOrNull(byte[] value) {
