@@ -113,7 +113,7 @@ public class UBReader implements Closeable {
         int bytesLeft = size;
         int offset = 0;
         while(bytesLeft > 0) {
-            int bytesRead = mInputStream.read(value, offset, size);
+            int bytesRead = mInputStream.read(value, offset, bytesLeft);
             if(bytesRead < 0) {
                 throw new IOException("eof reached");
             } else {
